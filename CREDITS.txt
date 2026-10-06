@@ -1,0 +1,11 @@
+This file is the credits list for the Arrakis software. 
+
+Major contributions to Arrakis have been provided by
+
+Fabien Souillé               (EDF RetD LNHE, Chatou, France)
+
+Other contributors to Arrakis include
+
+Matthieu Secher              (EDF CIH, Chambery, France)
+Matthieu Gonzales De Linares (EDF CIH, Chambery, France)
+Zakaria Yajioui              (MATMECA, Bordeaux, France)

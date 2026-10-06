@@ -1,0 +1,21 @@
+include_directories(${CMAKE_BINARY_DIR}/sources/)
+
+add_executable(ARRAKIS
+	module_data.f90
+	module_linalg.f90
+	module_checks.f90
+	module_io.f90
+	module_alloc.f90
+  module_timestep.f90
+	module_bedload.f90
+	module_suspension.f90
+	module_high_order.f90
+	module_steady.f90
+	module_fluxes_sv.f90
+	module_fluxes_sve.f90
+	module_bc.f90
+	module_init.f90
+	module_friction.f90
+	module_forward.f90
+	main.f90
+	)

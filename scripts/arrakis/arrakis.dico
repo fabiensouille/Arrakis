@@ -1,0 +1,684 @@
+
+
+#====================================================#
+#  CASE INPUT DATA <ARRAKIS> $2.0                    #
+#====================================================#
+
+
+#====================================================#
+TIME PARAMETERS:
+#====================================================#
+  MAXIMAL NUMBER OF ITERATIONS [int]                 : 10000000
+  Code variable: nitermax
+  Maximum number of iteration for time loop
+
+  DURATION [float]                                   : 100.
+  Code variable: time_max
+  Final time of the simulation in second
+
+  TIME STEP [float]                                  : 1.
+  Code variable: dt_const
+  if variable time step:
+  - specified value is ignored (use CFL NUMBER instead)
+  - only used for the frequency of output writing
+  
+  VARIABLE TIME STEP [bool]                          : yes
+  Code variable: var_dt
+  no : constant time step
+  yes: variable time step
+  Remark: If yes: TIME STEP is only used for graphic printouts
+  
+  CFL NUMBER [float]                                 : 0.9
+  Code variable: cfl
+  CFL condition for VARIABLE TIME STEP = yes
+  Time step is computed as: dt = CFL*dx/lambda
+
+  PARALLEL EXECUTION [bool]                          : yes
+  Code variable: use_omp
+  Run in parallel mode with OpenMP
+
+
+#====================================================#
+OUTPUT PARAMETERS:
+#====================================================#
+  RESULT FILE [str]                                  : RES
+  Code variable: res_file
+  Name of the result file
+
+  LISTING FREQUENCY [int]                            : 1
+  Code variable: ndisplay
+  Frequency of listing printouts
+  If LISTING FREQUENCY = 1: prints once every TIME STEP
+
+  OUTPUT FREQUENCY [int]                             : 1
+  Code variable: nrecord
+  Frequency of output writing
+  If LISTING FREQUENCY = 1: prints once every TIME STEP
+
+  VARIABLES [str]                                    : ZB,H,U
+  Code variable: vars_outputs
+  ZB : bottom elevation [m]
+  ZS : water surface elevation [m]
+  H  : water depth [m]
+  U  : water velocity [m/s]
+  Q  : water discharge [m^2/s]
+  QL : water volumic discharge, QL = Q*L [m^3/s]
+  L  : rectangular channel width [m]
+  CI : finite volume cell size [m]
+  RH : hydraulic radius [m]
+  FR : Froude number [-]
+  FC : friction coefficient [-]
+  B  : sediment depth [m]
+  ZF : hard ground elevation [m]
+  QS : solid discharge [m^2/s]
+  QSL: solid volumic discharge [m^3/s]
+  TB : bottom shear stress (tau) [Pa]
+  TS : dimensionless bottom shear stress (tau*)
+  A  : wetted area, A=H*L [m^2]
+  V  : water volume in each cell, V=H*L*ci [m^3]
+  AS : sediment area, AS=b*L [m^2]
+  VS : sediment volume, VS=b*L*ci [m^3]
+  Ti : tracer number i (1<=i<=99) [-]
+  CE : suspension equilibirum concentration [kg/m^3]
+  WS : settling velocity [m/s]
+  RO : Rouse number [-]
+  A1 : auxiliary array 1 (for debug) [-]
+  A2 : auxiliary array 2 (for debug) [-]
+
+  PROBES [int]                                       : 0
+  Code variable: probes
+  Number of probes
+
+  PROBES COORDINATES [float]                         : 0.
+  Code variable: probes_x
+  Coordinates of probes
+
+  PROBES VARIABLES [str]                             : H
+  Code variable: vars_probes
+  Variables to printout in probe files 
+  Remark: see VARIABLES names
+
+  PROBES FILE NAME                                   : PROBE
+  Code variable: pbr_file
+  Name of probe file
+
+  PROBES FREQUENCY [int]                             : 0
+  Code variable: nrecord_probes
+  0  : record probes and mass balance at every time step
+  >0 : record every N time steps (same logic as OUTPUT FREQUENCY)
+
+  SNAPSHOTS [int]                                    : 0
+  Code variable: snaps
+  Number of snapshots
+
+  SNAPSHOTS TIMES [float]                            : 0.
+  Code variable: snaps_t
+  Snapshot times
+
+  MASS BALANCE [bool]                                : no
+  Code variable: mass_balance
+  no : do not write mass balance file
+  yes: write mass balance boundary flux time series file
+  Output columns depend on MASS BALANCE OPTION (see below)
+
+  MASS BALANCE OPTION [int]                          : 1
+  Code variable: mb_option
+  0: write FH, FQ, FQS
+     columns: Time, FH_L, FQ_L, FQS_L, FH_R, FQ_R, FQS_R
+  1: write QL and QSL
+     QL  = FH*L   (water volumic discharge)
+     QSL = FQS*L (solid volumic discharge)
+     columns: Time, QL_L, QSL_L, QL_R, QSL_R
+
+  MASS BALANCE FILE NAME [str]                       : MB
+  Code variable: mb_file
+  Name of mass balance output file
+
+
+#====================================================#
+MESH PARAMETERS:
+#====================================================#
+  NUMBER OF NODES [int]                              : 100
+  Code variable: nx
+  Number of nodes in mesh
+  Remark: Ignored if MESH FILE = yes
+
+  CHANNEL XA [float]                                 : 0.
+  Code variable: xa
+  Abscissa of left boundary
+  Remark: Ignored if MESH FILE = yes
+
+  CHANNEL XB [float]                                 : 10.
+  Code variable: xb
+  Abscissa of right boundary
+  Remark: Ignored if MESH FILE = yes
+
+  CHANNEL WIDTH [float]                              : 1.
+  Code variable: Lcst
+  constant width of the channel
+  Remark: Ignored if VARIABLE CHANNEL WIDTH = yes
+
+  HYDRAULIC RADIUS APPROXIMATION [int]               : 1
+  Code variable: Rh_approx
+  0: Rh = h
+  1: Rh = h*B/(B + 2*h)
+  Remark: Ignored if VARIABLE CHANNEL WIDTH = True
+
+  MESH FILE [bool]                                   : no
+  Code variable: use_mesh_file
+  no : do not use mesh file
+  yes: use mesh file 
+  Remark: CHANNEL XA, XB and NUMBER OF NODES ignored
+  
+  MESH FILE NAME [str]                               : MESH
+  Code variable: mesh_file
+  Mesh file name
+  Remark: file must have the extension .geo
+
+  VARIABLE CHANNEL WIDTH [bool]                      : no
+  Code variable: variable_width
+  no : constant channel width, solves the SV1D eq.
+  yes: varianle channel width, solves the SV1D eq. with
+  variable rectangular cross section (new source terms)
+
+
+#====================================================#
+PHYSICAL PARAMETERS:
+#====================================================#
+  BOTTOM FRICTION LAW [int]                          : 0
+  Code variable: frict_law
+  Bottom friction law, available options:
+  0:  None
+  1:  Fanning
+  2:  Chezy
+  3:  Strickler (1981): ks/h in [0.007;0.1]
+  4:  Nikuradse (1950): ks/h in [0;0.1]
+  5:  Colebrook-White (1939): ks/h in [0;0.1]
+  6:  Haaland (1983) : explicit version of CW (C=12)
+  7:  Barr (1977)    : explicit version of CW (C=14.8)
+  8:  Bathurst (1985): ks/h in [0.1;5.15]
+  9:  Machiels (2011): Barr+Bathurst, ks/h in [0,5.15]
+  10: Ferguson (2007):  ks/h in [0,1.]
+
+  BOTTOM FRICTION COEFFICIENT [float]                : 0.
+  Code variable: frict_coef
+  Friction coefficient (unit depends on the law)
+
+  DIFFUSION OF VELOCITY [bool]                       : no
+  Code variable: diffusion_u
+  no: No diffusion of velocity
+  yes: diffusion of velocity
+
+  VELOCITY DIFFUSIVITY [float]                       : 1.E-6
+  Code variable: nu_u
+  velocity diffusivity coefficient in m^2/s
+
+
+#====================================================#
+NUMERICAL PARAMETERS:
+#====================================================#
+  ADVECTION SCHEME [int]                             : 1
+  Code variable: method
+  1: Roe
+  2: HLL (Harten Lax Van-Leer) 
+  3: ACU (Audusse Chalon Ung)
+  4: Kinetic (only SV)
+  Remark: ignored if TIME SCHEME = 0 (steady kernel)
+
+  TIME SCHEME [int]                                  : 1
+  Code variable: time_scheme
+  0: Steady
+  1: Euler explicit (order 1)
+  2: Heun (order 2)
+  3: RK2 (order 2, experimental, only SV)
+  4: RK3 (order 3, experimental, only SV)
+  
+  SPACE ORDER [int]                                  : 1
+  Code variable: ordre
+  1: first order
+  2: second order
+  3: third order (experimental)
+  5: Fifth order WENO (experimental)
+
+  SPACE ORDER FOR TRACERS [int]                      : 1
+  Code variable: ordre_trac
+  1: first order
+  2: second order
+  3: third order (experimental)
+  5: Fifth order WENO (experimental)
+
+  SVE SCHEME OPTION [int]                            : 0
+  Code variable: swe_scheme_opt
+  0: Coupled schemes (ROE-SVE, HLL-SVE or ACU-SVE)
+     selected via ADVECTION SCHEME
+  1: SV advection scheme + Exner Centered (unstable)
+  2: SV advection scheme + Exner Upwind (c=dq/dzb)
+  3: SV advection scheme + Exner Upwind (Fr)
+  4: SV advection scheme + Exner HLL
+  Remark: option only available for TIME SCHEME =! 0
+  
+  STD SCHEME OPTION [int]                            : 0
+  Code variable: std_scheme_opt
+  0: non-linear (Newton iterative solver)
+  1: linearized equations
+  Remark: option only available for TIME SCHEME = 0
+
+
+#====================================================#
+INITIAL CONDITION:
+#====================================================#
+  INITIAL FILE [bool]                                : no
+  Code variable: use_ini_file
+  no : dont use ini file
+  yes: use ini file (INITIAL CONDITION ignored)
+  Remark: zb defined from mesh file is ignored
+  Remark: ini file must contain: x, zb, h, u
+  Remark: ini file mesh nodes can be different,
+  in which case linear interpolation is performed
+  to get the solution on the current simulation mesh
+
+  INITIAL FILE NAME [str]                            : INI
+  Code variable: ini_file
+  Remark: file must have the extension .ini
+
+  INITIAL CONDITION [int]                            : 1
+  Code variable: type_init
+  0 : ALL NULL
+  1 : CONSTANT ELEVATION and CONSTANT FLOWRATE
+  2 : CONSTANT WATER DEPTH and CONSTANT FLOWRATE
+
+  CONSTANT WATER DEPTH [float]                       : 1.
+  Code variable: const_h
+
+  CONSTANT ELEVATION [float]                         : 1.
+  Code variable: const_e
+
+  CONSTANT FLOWRATE [float]                          : 0.
+  Code variable: const_q
+  fluid discharge in m3/s
+
+
+#====================================================#
+BOUNDARY CONDITIONS:
+#====================================================#
+  ELEVATION OR WATER DEPTH FORMULATION [int]         : 1
+  Code variable: clhorz
+  0: free surface elevation
+  1: water depth (default)
+  (automatic detection if BND file is used)
+
+  VELOCITY OR FLOWRATE FORMULATION [int]             : 1
+  Code variable: clqoru
+  0: velocity 
+  1: flowrate (default)
+  (automatic detection if BND file is used)
+
+  LEFT BOUNDARY CONDITION [int]                      : 3
+  Code variable: bctype_l
+  1: Wall
+  2: h imposed (Fluvial)
+  3: q imposed (Fluvial)
+  4: h and q imposed (Torrential)
+  5: none imposed (Torrential)
+  6: Neumann
+  7: Periodic
+
+  LEFT ELEVATION IMPOSED [float]                     : 1.
+  Code variable: zsa
+  
+  LEFT DEPTH IMPOSED [float]                         : 1.
+  Code variable: ha
+  
+  LEFT VELOCITY IMPOSED [float]                      : 0.1
+  Code variable: ua
+  
+  LEFT FLOWRATE IMPOSED [float]                      : 0.1
+  Code variable: qa
+  fluid discharge in m3/s
+
+  LEFT BOUNDARY FILE [bool]                          : no
+  Code variable: use_bcfile_l
+  no : liquid boundary file not used
+  yes: liquid boundary file used, imposed values ignored
+  LEFT BOUNDARY FILE NAME [str]                      : BCL
+  Code variable: bcfile_l
+  Remark: file must have the extension .liq
+
+  RIGHT BOUNDARY CONDITION [int]                     : 2
+  Code variable: bctype_r
+  1: Wall
+  2: h imposed (Fluvial)
+  3: q imposed (Fluvial)
+  4: h and q imposed (Torrential)
+  5: none imposed (Torrential)
+  6: Homogeneous Neumann (null gradients)
+  7: Periodic
+
+  RIGHT ELEVATION IMPOSED [float]                    : 1.
+  Code variable: zsb
+  
+  RIGHT DEPTH IMPOSED [float]                        : 1.
+  Code variable: hb
+  
+  RIGHT VELOCITY IMPOSED [float]                     : -0.1
+  Code variable: ub
+  
+  RIGHT FLOWRATE IMPOSED [float]                     : -0.1
+  Code variable: qb
+  fluid discharge in m3/s
+
+  RIGHT BOUNDARY FILE [bool]                         : no
+  Code variable: use_bcfile_r
+  no : liquid boundary file not used
+  yes: liquid boundary file used, imposed values ignored
+  RIGHT BOUNDARY FILE NAME [str]                     : BCR
+  Code variable: bcfile_r
+  Remark: file must have the extension .liq
+
+  BOUNDARY CONDITION OPTION [int]                    : 0
+  Code variable: bc_opt
+  0: no extrapolation, no sources, no rec
+  1: no extrapolation, sources, no rec
+  2: extrapolation, sources, no rec
+  3: extrapolation, sources, rec
+
+
+#====================================================#
+TRACER PARAMETERS:
+#====================================================#
+  NUMBER OF TRACERS [int]                            : 0
+  Code variable: ntrac
+
+  INITIAL TRACER VALUES                              : 0.
+  Code variable: const_t
+
+  LEFT TRACER BOUNDARY CONDITION [int]               : 1
+  Code variable: bctypet_l
+  1: Dirichlet (tracer value imposed)
+  2: Homogeneous Neumann (null gradients)
+  3: Periodic
+
+  LEFT TRACER VALUE IMPOSED [float]                  : 0.
+  Code variable: ta
+
+  RIGHT TRACER BOUNDARY CONDITION [int]              : 1
+  Code variable: bctypet_r
+  1: Dirichlet (tracer value imposed)
+  2: Homogeneous Neumann (null gradients)
+  3: Periodic
+
+  RIGHT TRACER VALUE IMPOSED [float]                 : 0.
+  Code variable: tb
+
+  DIFFUSION OF TRACERS [bool]                        : no
+  Code variable: diffusion_t
+  no: No diffusion of tracers
+  yes: diffusion of tracers
+
+  TRACER DIFFUSIVITY [float]                         : 1.E-6
+  Code variable: nu_t
+
+
+#====================================================#
+SEDIMENT PARAMETERS:
+#====================================================#
+  BED POROSITY [float]                               : 0.25
+  Code variable: porosite
+  
+  SEDIMENT DENSITY [float]                           : 2650.
+  Code variable: rhos
+  
+  SEDIMENT D50 [float]                               : 2.E-3
+  Code variable: d50
+
+  SEDIMENT D16 [float]                               : 0.
+  Code variable: d16
+  Only for Lefort bedload law
+  if 0.: auto-compute as 0.5*d50 
+
+  SEDIMENT DM [float]                                : 0.
+  Code variable: dm
+  Only for Lefort and Recking bedload laws
+  if 0.: auto-compute as 1.1*d50 
+
+  SEDIMENT D84 [float]                               : 0.
+  Code variable: d84
+  Only for Lefort and Recking bedload laws
+  if 0.: auto-compute as 2.1*d50
+
+  ACTIVATE SUSPENSION [bool]                         : no
+  Code variable: suspension
+  no : no suspended sediments
+  yes: activate suspended sediments
+
+  SUSPENSION FORMULA [int]                           : 2
+  Code variable: suspension_formula
+  1: From qs computed with BEDLOAD FORMULA
+  2: Engelund and Hansen (1967)
+  3: Van Rijn (1984)
+  4: Zyserman-Fredsoe (1994)
+
+  SUSPENSION CALIBRATION COEFFICIENT [float]         : 1.
+  Code variable: suspension_coef
+
+  SUSPENSION SETTLING VELOCITY [float]               : 0.
+  Code variable: ws_susp
+  - if == 0.: computed in Arrakis as a function of d50
+  - if != 0.: user defined constant value
+
+  SUSPENSION USE ROUSE PROFILE [bool]                : no
+  Code variable: rouse_profile
+  yes : use Rouse profile to compute Czref = C*csratio
+  no : do not use use Rouse profile, Czref = C
+
+  SUSPENSION CRITICAL STABILIZATION [bool]           : no
+  Code variable: susp_critdiff
+  Add artificial diffusivity to stabilize the solution
+  in critical flows 
+
+  SUSPENSION CRITICAL STABILIZATION COEFFICIENT [f]  : 0.2
+  Code variable: susp_nu_u
+  coefficient of additional velocity diffusivity
+  (nu_tot = nu_u + coef*fr**2)
+
+  ACTIVATE BEDLOAD [bool]                            : no
+  Code variable: bedload
+  no : no bedload (SV equation)
+  yes: activate bedload (SVE equations)
+
+  LEFT BEDLOAD BOUNDARY CONDITION [int]              : 2
+  Code variable: bctypeqs_l
+  1: Dirichlet (qs imposed : in m3/s
+     * fixed value by keyword LEFT SOLID FLUX or by
+     * additional column QS in LEFT BOUNDARY FILE)
+  2: Homogeneous Neumann (null gradients)
+  3: Periodic
+  4: Equilibrium slope (qs = f(Jeq))
+  5: Dirichlet (qs computed from hydro cdl values)
+
+  LEFT SOLID FLUX [float]                            : 0.
+  Code variable: qsa
+  Imposed solid flux qs (for Dirichlet condition: 1)
+  solid discharge in m3/s
+
+  LEFT EQUILIBRIUM SLOPE [float]                     : 0.005
+  Code variable: Jeqa
+  Imposed equilibrium slope Jep (for bnd condition :4)
+
+  RIGHT BEDLOAD BOUNDARY CONDITION [int]             : 2
+  Code variable: bctypeqs_r
+  1: Dirichlet (qs imposed : in m3/s
+     * fixed value by keyword LEFT SOLID FLUX or by
+     * additional column QS in LEFT BOUNDARY FILE)
+  2: Homogeneous Neumann (null gradients)
+  3: Periodic
+  4: Equilibrium slope (qs = f(Jeq))
+  5: Dirichlet (qs computed from hydro cdl values)
+
+  RIGHT SOLID FLUX [float]                           : 0.
+  Code variable: qsb
+  Imposed solid flux qs (for Dirichlet condition: 1)
+  solid discharge in m3/s
+
+  RIGHT EQUILIBRIUM SLOPE [float]                    : 0.005
+  Code variable: Jeqb
+  Imposed equilibrium slope Jep (for bnd condition :4)
+  
+  BEDLOAD FORMULA [int]                              : 1
+  Code variable: bedload_formula
+  1: Grass (1981)
+  2: Grass Modified
+  3: Meyer-Peter and Muller (1948)
+  4: Standardized MPM, Zanke and Roland (2020)
+  5: Lefort (2014)
+  6: Recking (2013)
+  7: Recking (2015)
+  8: Engelund and Hansen (1967)
+  9: Van Rijn (1984)
+
+  BEDLOAD CALIBRATION COEFFICIENT [float]            : 1.
+  Code variable: bedload_coef
+  Coefficient to calibrate bedload flux qs
+
+  GRASS AG [float]                                   : 0.001
+  Code variable: Ag
+  GRASS MG [float] 1<=mg<=4                          : 3.
+  Code variable: mg
+  
+  CRITICAL SHIELDS [float]                           : 0.047
+  Code variable: tau_c
+  - if == 0.: computed in Arrakis as a function of d50
+  - if != 0.: user defined constant value
+  
+  STD MPM COEF A [float]                             : 10.24
+  Code variable: smpm_a
+  STD MPM COEF B [float]                             : 0.7
+  Code variable: smpm_b
+
+  SLOPE DIFFUSION [bool]                             : yes
+  Code variable: diffusion_z
+  SLOPE DIFFUSION COEFFICIENT [float]                : 1.E-3
+  Code variable: nu_z
+  SLOPE CRITICAL THRESHOLD [float]                   : 1.
+  Code variable: slope_cr
+
+  NON ERODIBLE BED DAMPING REGION DEPTH [float]      : 0.1
+  Code variable: eps_b
+  Depth of the damping region
+  =0.: set to 10% of min(zb-zf)
+  >0.: set to the specified value
+
+  BED FRICTION SCALING COEFFICIENT [float]           : 1.
+  Code variable: bed_fric_coef
+  Coefficient to scale friction in bedload shear stress
+
+
+#====================================================#
+ADVANCED NUMERICAL PARAMETERS:
+#====================================================#
+
+  UNLOCK ADVANCED PARAMETERS [bool]                  : no
+  Code variable: advanced_params
+
+  RECONSTRUCTION METHOD [int]                        : 2
+  Code variable: rec_method
+  1: gradient
+  2: variables
+
+  H FLUX LIMITER [int]                               : 1
+  Code variable: muscl_ilim_h
+  1: Min Mod
+  2: Van Albada
+  3: Van Leer
+  4: MC
+  5: Super Bee
+  6: Generalized Min Mod
+
+  U FLUX LIMITER [int]                               : 1
+  Code variable: muscl_ilim_u
+  T FLUX LIMITER [int]                               : 1
+  Code variable: muscl_ilim_t
+
+  HYDROSTATIC RECONSTRUCTION [int]                   : 1
+  Code variable: hydrostarec
+  0: No reconstructions
+  1: Audusse and al. (default for SV)
+  2: Chen and Noelle
+  3: Centered 
+  4: Centered Roe (default for ROE-SVE)
+  5: Upwind Roe (Vazquez-Cendon)
+
+  BOTTOM FRICTION SCHEME [int]                       : 3
+  Code variable: frict_scheme
+  1: Explicit (unstable)
+  2: Semi-implicit
+  3: implicit
+
+  VARIABLE WIDTH SCHEME [int]                        : 2
+  Code variable: width_scheme
+  1: 1st order FD (upwind, experimental) 
+  2: 2nd order FD (Centered, default for HLL, ACU)
+  3: 3rd order FD (experimental)
+  4: 4th order FD (only for constant dx, experimental)
+  5: Upwind Roe (Vazquez-Cendon, default for ROE)
+
+  SVE WAVES APPROXIMATION [int]                      : 1
+  Code variable: swe_roots_approx
+  1: Cardano's method (default with ROE-SVE)
+  2: Soares-Frazao and Zech approximation (default with HLL-SVE)
+  3: Nickalls' approximation (default with ACU-SVE)
+
+  BEDLOAD FLUX DERIVATIVES [int]                     : 0
+  Code variable: qs_derivatives
+  0: exact formula
+  1: finite differences (forward)
+  2: finite differences (backward)
+  3: finite differences (centered)
+  4: finite differences (optim)
+
+  BEDLOAD FLUX DERIVATIVES STEP FOR H [float]        : 1.E-5
+  Code variable: qs_derivatives_dh
+  dh increment for finite difference flux derivative
+
+  BEDLOAD FLUX DERIVATIVES STEP FOR U [float]        : 1.E-5
+  Code variable: qs_derivatives_du
+  du increment for finite difference flux derivative
+
+  NON ERODIBLE BED FLUX LIMITER [int]                : 1
+  Code variable: qs_lim
+  0: no qs limitor
+  1: add qs limitor to prevent zb<zf
+
+  NON ERODIBLE BED DAMPING REGION [int]              : 1
+  Code variable: eps_b_damping
+  0: no damping of qs
+  1: qs = psi*qs if 0<zb-zf<eps_b with 0<psi<1
+
+  SUSPENSION TAU SCHEME [int]                        : 1
+  Code variable: susp_taus_scheme
+  0: centered scheme
+  1: upwind scheme (Fr)
+
+  SUSPENSION TRACER TIME SCHEME [int]                : 0
+  Code variable: susp_trac_scheme
+  0: explicit
+  1: implicit
+
+  STEADY SOLVER PRECISION [float]                    : 1.E-8
+  Code variable: std_precision
+  Precision of the steady non-linear iterative solver (Newton)
+
+  STEADY SOLVER MAXIMUM ITERATIONS [int]             : 50
+  Code variable: std_max_iter
+  Maximum number of iteration for the steady non-linear 
+  iterative solver (Newton)
+
+  STEADY SOLVER FROUDE IN CRITICAL ZONES [float]     : 0.9
+  Code variable: std_critical_fr
+  Froude number for the h clipping in critical zones
+
+  STEADY SOLVER CRITICAL OPTION [int]                : 0
+  Code variable: std_critical_opt
+  Option for the computation of critical zones in steady solver
+  0: left subcritical state computed with closest critical node
+  1: left subcritical state computed with last subcritical node

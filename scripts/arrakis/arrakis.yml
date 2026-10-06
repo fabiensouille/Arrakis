@@ -1,0 +1,176 @@
+
+
+#====================================================#
+#  CASE INPUT DATA <ARRAKIS> $2.0                    #
+#====================================================#
+
+
+#====================================================#
+TIME PARAMETERS:
+#====================================================#
+  MAXIMAL NUMBER OF ITERATIONS                       : 10000000
+  DURATION                                           : 100.
+  TIME STEP                                          : 1.
+  VARIABLE TIME STEP                                 : yes
+  CFL NUMBER                                         : 0.9
+  PARALLEL EXECUTION                                 : yes
+
+
+#====================================================#
+OUTPUT PARAMETERS:
+#====================================================#
+  RESULT FILE                                        : RES
+  LISTING FREQUENCY                                  : 1
+  OUTPUT FREQUENCY                                   : 1
+  VARIABLES                                          : ZB,H,U
+  PROBES                                             : 0
+  PROBES COORDINATES                                 : 0.
+  PROBES VARIABLES                                   : H
+  PROBES FILE NAME                                   : PROBE
+  PROBES FREQUENCY                                   : 0
+  SNAPSHOTS                                          : 0
+  SNAPSHOTS TIMES                                    : 0.
+  MASS BALANCE                                       : no
+  MASS BALANCE OPTION                                : 1
+  MASS BALANCE FILE NAME                             : MB
+
+
+#====================================================#
+MESH PARAMETERS:
+#====================================================#
+  NUMBER OF NODES                                    : 100
+  CHANNEL XA                                         : 0.
+  CHANNEL XB                                         : 10.
+  CHANNEL WIDTH                                      : 1.
+  HYDRAULIC RADIUS APPROXIMATION                     : 1
+  MESH FILE                                          : no
+  MESH FILE NAME                                     : MESH
+  VARIABLE CHANNEL WIDTH                             : no
+
+
+#====================================================#
+PHYSICAL PARAMETERS:
+#====================================================#
+  BOTTOM FRICTION LAW                                : 0
+  BOTTOM FRICTION COEFFICIENT                        : 0.
+  DIFFUSION OF VELOCITY                              : no
+  VELOCITY DIFFUSIVITY                               : 1.E-6
+
+
+#====================================================#
+NUMERICAL PARAMETERS:
+#====================================================#
+  ADVECTION SCHEME                                   : 1
+  TIME SCHEME                                        : 1
+  SPACE ORDER                                        : 1
+  SPACE ORDER FOR TRACERS                            : 1
+  SVE SCHEME OPTION                                  : 0
+  STD SCHEME OPTION                                  : 0
+
+
+#====================================================#
+INITIAL CONDITION:
+#====================================================#
+  INITIAL FILE                                       : no
+  INITIAL FILE NAME                                  : INI
+  INITIAL CONDITION                                  : 1
+  CONSTANT WATER DEPTH                               : 1.
+  CONSTANT ELEVATION                                 : 1.
+  CONSTANT FLOWRATE                                  : 0.
+
+
+#====================================================#
+BOUNDARY CONDITIONS:
+#====================================================#
+  ELEVATION OR WATER DEPTH FORMULATION               : 1
+  VELOCITY OR FLOWRATE FORMULATION                   : 1
+  LEFT BOUNDARY CONDITION                            : 3
+  LEFT ELEVATION IMPOSED                             : 1.
+  LEFT DEPTH IMPOSED                                 : 1.
+  LEFT VELOCITY IMPOSED                              : 0.1
+  LEFT FLOWRATE IMPOSED                              : 0.1
+  LEFT BOUNDARY FILE                                 : no
+  LEFT BOUNDARY FILE NAME                            : BCL
+  RIGHT BOUNDARY CONDITION                           : 2
+  RIGHT ELEVATION IMPOSED                            : 1.
+  RIGHT DEPTH IMPOSED                                : 1.
+  RIGHT VELOCITY IMPOSED                             : -0.1
+  RIGHT FLOWRATE IMPOSED                             : -0.1
+  RIGHT BOUNDARY FILE                                : no
+  RIGHT BOUNDARY FILE NAME                           : BCR
+  BOUNDARY CONDITION OPTION                          : 0
+
+
+#====================================================#
+TRACER PARAMETERS:
+#====================================================#
+  NUMBER OF TRACERS                                  : 0
+  INITIAL TRACER VALUES                              : 0.
+  LEFT TRACER BOUNDARY CONDITION                     : 1
+  LEFT TRACER VALUE IMPOSED                          : 0.
+  RIGHT TRACER BOUNDARY CONDITION                    : 1
+  RIGHT TRACER VALUE IMPOSED                         : 0.
+  DIFFUSION OF TRACERS                               : no
+  TRACER DIFFUSIVITY                                 : 1.E-6
+
+
+#====================================================#
+SEDIMENT PARAMETERS:
+#====================================================#
+  BED POROSITY                                       : 0.25
+  SEDIMENT DENSITY                                   : 2650.
+  SEDIMENT D50                                       : 2.E-3
+  SEDIMENT D16                                       : 0.
+  SEDIMENT DM                                        : 0.
+  SEDIMENT D84                                       : 0.
+  ACTIVATE SUSPENSION                                : no
+  SUSPENSION FORMULA                                 : 2
+  SUSPENSION CALIBRATION COEFFICIENT                 : 1.
+  SUSPENSION SETTLING VELOCITY                       : 0.
+  SUSPENSION USE ROUSE PROFILE                       : no
+  SUSPENSION CRITICAL STABILIZATION                  : no
+  SUSPENSION CRITICAL STABILIZATION COEFFICIENT      : 0.2
+  ACTIVATE BEDLOAD                                   : no
+  LEFT BEDLOAD BOUNDARY CONDITION                    : 2
+  LEFT SOLID FLUX                                    : 0.
+  LEFT EQUILIBRIUM SLOPE                             : 0.005
+  RIGHT BEDLOAD BOUNDARY CONDITION                   : 2
+  RIGHT SOLID FLUX                                   : 0.
+  RIGHT EQUILIBRIUM SLOPE                            : 0.005
+  BEDLOAD FORMULA                                    : 1
+  BEDLOAD CALIBRATION COEFFICIENT                    : 1.
+  GRASS AG                                           : 0.001
+  GRASS MG                                           : 3.
+  CRITICAL SHIELDS                                   : 0.047
+  STD MPM COEF A                                     : 10.24
+  STD MPM COEF B                                     : 0.7
+  SLOPE DIFFUSION                                    : yes
+  SLOPE DIFFUSION COEFFICIENT                        : 1.E-3
+  SLOPE CRITICAL THRESHOLD                           : 1.
+  NON ERODIBLE BED DAMPING REGION DEPTH              : 0.1
+  BED FRICTION SCALING COEFFICIENT                   : 1.
+
+
+#====================================================#
+ADVANCED NUMERICAL PARAMETERS:
+#====================================================#
+  UNLOCK ADVANCED PARAMETERS                         : no
+  RECONSTRUCTION METHOD                              : 2
+  H FLUX LIMITER                                     : 1
+  U FLUX LIMITER                                     : 1
+  T FLUX LIMITER                                     : 1
+  HYDROSTATIC RECONSTRUCTION                         : 1
+  BOTTOM FRICTION SCHEME                             : 3
+  VARIABLE WIDTH SCHEME                              : 2
+  SVE WAVES APPROXIMATION                            : 1
+  BEDLOAD FLUX DERIVATIVES                           : 0
+  BEDLOAD FLUX DERIVATIVES STEP FOR H                : 1.E-5
+  BEDLOAD FLUX DERIVATIVES STEP FOR U                : 1.E-5
+  NON ERODIBLE BED FLUX LIMITER                      : 1
+  NON ERODIBLE BED DAMPING REGION                    : 1
+  SUSPENSION TAU SCHEME                              : 1
+  SUSPENSION TRACER TIME SCHEME                      : 0
+  STEADY SOLVER PRECISION                            : 1.E-8
+  STEADY SOLVER MAXIMUM ITERATIONS                   : 50
+  STEADY SOLVER FROUDE IN CRITICAL ZONES             : 0.9
+  STEADY SOLVER CRITICAL OPTION                      : 0
