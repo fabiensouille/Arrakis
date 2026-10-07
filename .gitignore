@@ -1,0 +1,15 @@
+build/
+sources/ARRAKIS
+*.dat
+*.mod
+*.exe
+*.png
+*.mp4
+*.pyc
+__pycache__
+study/*
+deps/
+.venv/
+*.egg-info/
+.gemini
+.continue

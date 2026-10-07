@@ -1,0 +1,94 @@
+
+
+
+#====================================================#
+#  CASE INPUT DATA <ARRAKIS> $2.0                    #
+#====================================================#
+
+
+#====================================================#
+TIME PARAMETERS:
+#====================================================#
+  MAXIMAL NUMBER OF ITERATIONS                       : 10000000
+  DURATION                                           : 10000.
+  TIME STEP                                          : 1.
+  VARIABLE TIME STEP                                 : yes
+  CFL NUMBER                                         : 0.9
+
+
+#====================================================#
+OUTPUT PARAMETERS:
+#====================================================#
+  RESULT FILE                                        : RES
+  LISTING FREQUENCY                                  : 1000
+  OUTPUT FREQUENCY                                   : 1000
+  VARIABLES                                          : ZB,H,U,L,Q,QL
+
+
+#====================================================#
+MESH PARAMETERS:
+#====================================================#
+  MESH FILE                                          : yes
+  MESH FILE NAME                                     : MESH
+  VARIABLE CHANNEL WIDTH                             : yes
+
+
+#====================================================#
+PHYSICAL PARAMETERS:
+#====================================================#
+  BOTTOM FRICTION LAW                                : 3
+  BOTTOM FRICTION COEFFICIENT                        : 33.333333
+  DIFFUSION OF VELOCITY                              : no
+  VELOCITY DIFFUSIVITY                               : 0.
+
+
+#====================================================#
+NUMERICAL PARAMETERS:
+#====================================================#
+  ADVECTION SCHEME                                   : 2
+  TIME SCHEME                                        : 1
+  SPACE ORDER                                        : 1
+
+
+#====================================================#
+INITIAL CONDITION:
+#====================================================#
+  INITIAL FILE                                       : yes
+  INITIAL FILE NAME                                  : INIC
+
+
+#====================================================#
+BOUNDARY CONDITIONS:
+#====================================================#
+  VELOCITY OR FLOWRATE FORMULATION                   : 1
+  LEFT BOUNDARY CONDITION                            : 3
+  LEFT DEPTH IMPOSED                                 : 1.000408
+  LEFT VELOCITY IMPOSED                              : 0.
+  LEFT FLOWRATE IMPOSED                              : 20.
+  LEFT BOUNDARY FILE                                 : no
+  LEFT BOUNDARY FILE NAME                            : BCL
+  RIGHT BOUNDARY CONDITION                           : 2
+  RIGHT DEPTH IMPOSED                                : 1.000408
+  RIGHT VELOCITY IMPOSED                             : 0.
+  RIGHT FLOWRATE IMPOSED                             : -20.
+  RIGHT BOUNDARY FILE                                : no
+  RIGHT BOUNDARY FILE NAME                           : BCR
+
+
+#====================================================#
+TRACER PARAMETERS:
+#====================================================#
+  NUMBER OF TRACERS                                  : 0
+
+
+#====================================================#
+SEDIMENT PARAMETERS:
+#====================================================#
+  ACTIVATE SUSPENSION                                : no
+  ACTIVATE BEDLOAD                                   : no
+
+
+#====================================================#
+ADVANCED NUMERICAL PARAMETERS:
+#====================================================#
+  UNLOCK ADVANCED PARAMETERS                         : no

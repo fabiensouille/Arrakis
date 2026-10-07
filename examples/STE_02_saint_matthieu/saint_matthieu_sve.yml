@@ -1,0 +1,115 @@
+
+
+
+#====================================================#
+#  CASE INPUT DATA <ARRAKIS> $2.0                    #
+#====================================================#
+
+
+#====================================================#
+TIME PARAMETERS:
+#====================================================#
+  MAXIMAL NUMBER OF ITERATIONS                       : 1000000
+  DURATION                                           : 21600.
+  TIME STEP                                          : 1.
+  VARIABLE TIME STEP                                 : yes
+  CFL NUMBER                                         : 0.9
+
+
+#====================================================#
+OUTPUT PARAMETERS:
+#====================================================#
+  RESULT FILE                                        : RES
+  LISTING FREQUENCY                                  : 1000
+  OUTPUT FREQUENCY                                   : 1000
+  VARIABLES                                          : ZB,H,U,L,Q,QL
+  PROBES FREQUENCY                                   : 1000
+  MASS BALANCE                                       : yes
+  MASS BALANCE OPTION                                : 1
+  MASS BALANCE FILE NAME                             : MB
+
+
+#====================================================#
+MESH PARAMETERS:
+#====================================================#
+  NUMBER OF NODES                                    : 180
+  CHANNEL XA                                         : 0.
+  CHANNEL XB                                         : 3992.
+  MESH FILE                                          : yes
+  MESH FILE NAME                                     : MESH
+  VARIABLE CHANNEL WIDTH                             : yes
+
+
+#====================================================#
+PHYSICAL PARAMETERS:
+#====================================================#
+  BOTTOM FRICTION LAW                                : 3
+  BOTTOM FRICTION COEFFICIENT                        : 40.
+  DIFFUSION OF VELOCITY                              : no
+  VELOCITY DIFFUSIVITY                               : 0.
+
+
+#====================================================#
+NUMERICAL PARAMETERS:
+#====================================================#
+  ADVECTION SCHEME                                   : 1
+  TIME SCHEME                                        : 1
+  SPACE ORDER                                        : 1
+
+
+#====================================================#
+INITIAL CONDITION:
+#====================================================#
+  INITIAL FILE                                       : yes
+  INITIAL FILE NAME                                  : INI
+  INITIAL CONDITION                                  : 1
+  CONSTANT ELEVATION                                 : 0.
+  CONSTANT FLOWRATE                                  : 0.
+
+
+#====================================================#
+BOUNDARY CONDITIONS:
+#====================================================#
+  VELOCITY OR FLOWRATE FORMULATION                   : 1
+  LEFT BOUNDARY CONDITION                            : 3
+  LEFT DEPTH IMPOSED                                 : 0.
+  LEFT VELOCITY IMPOSED                              : 0.
+  LEFT FLOWRATE IMPOSED                              : 30.
+  LEFT BOUNDARY FILE                                 : no
+  LEFT BOUNDARY FILE NAME                            : BCQ
+  RIGHT BOUNDARY CONDITION                           : 2
+  RIGHT DEPTH IMPOSED                                : 10.
+  RIGHT VELOCITY IMPOSED                             : 0.
+  RIGHT FLOWRATE IMPOSED                             : 0.
+  RIGHT BOUNDARY FILE                                : no
+  RIGHT BOUNDARY FILE NAME                           : BCH
+
+
+#====================================================#
+TRACER PARAMETERS:
+#====================================================#
+  NUMBER OF TRACERS                                  : 0
+
+
+#====================================================#
+SEDIMENT PARAMETERS:
+#====================================================#
+  BED POROSITY                                       : 0.25
+  SEDIMENT DENSITY                                   : 2650.
+  SEDIMENT D50                                       : 0.0206
+  ACTIVATE SUSPENSION                                : no
+  ACTIVATE BEDLOAD                                   : yes
+  LEFT BEDLOAD BOUNDARY CONDITION                    : 4
+  LEFT EQUILIBRIUM SLOPE                             : 0.0047
+  RIGHT BEDLOAD BOUNDARY CONDITION                   : 2
+  RIGHT EQUILIBRIUM SLOPE                            : 0.
+  BEDLOAD FORMULA                                    : 1
+  GRASS AG                                           : 0.00015617
+  GRASS MG                                           : 3.
+  CRITICAL SHIELDS                                   : 0.047
+
+
+#====================================================#
+ADVANCED NUMERICAL PARAMETERS:
+#====================================================#
+  UNLOCK ADVANCED PARAMETERS                         : no

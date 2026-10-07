@@ -1,0 +1,102 @@
+
+
+
+#====================================================#
+#  CASE INPUT DATA <ARRAKIS> $2.0                    #
+#====================================================#
+
+
+#====================================================#
+TIME PARAMETERS:
+#====================================================#
+  MAXIMAL NUMBER OF ITERATIONS                       : 10000
+  DURATION                                           : 60.
+  TIME STEP                                          : 1.
+  VARIABLE TIME STEP                                 : yes
+  CFL NUMBER                                         : 0.9
+
+
+#====================================================#
+OUTPUT PARAMETERS:
+#====================================================#
+  RESULT FILE                                        : RES
+  LISTING FREQUENCY                                  : 100
+  OUTPUT FREQUENCY                                   : 100
+  VARIABLES                                          : ZB,H,U,T1,T2
+
+
+#====================================================#
+MESH PARAMETERS:
+#====================================================#
+  MESH FILE                                          : yes
+  MESH FILE NAME                                     : MESH
+  VARIABLE CHANNEL WIDTH                             : yes
+
+
+#====================================================#
+PHYSICAL PARAMETERS:
+#====================================================#
+  BOTTOM FRICTION LAW                                : 0
+  BOTTOM FRICTION COEFFICIENT                        : 0.
+  DIFFUSION OF VELOCITY                              : no
+  VELOCITY DIFFUSIVITY                               : 0.
+
+
+#====================================================#
+NUMERICAL PARAMETERS:
+#====================================================#
+  ADVECTION SCHEME                                   : 2
+  TIME SCHEME                                        : 1
+  SPACE ORDER                                        : 1
+  SPACE ORDER FOR TRACERS                            : 1
+
+
+#====================================================#
+INITIAL CONDITION:
+#====================================================#
+  INITIAL FILE                                       : yes
+  INITIAL FILE NAME                                  : INIC
+
+
+#====================================================#
+BOUNDARY CONDITIONS:
+#====================================================#
+  VELOCITY OR FLOWRATE FORMULATION                   : 0
+  LEFT BOUNDARY CONDITION                            : 3
+  LEFT DEPTH IMPOSED                                 : 1.
+  LEFT VELOCITY IMPOSED                              : 0.1
+  LEFT FLOWRATE IMPOSED                              : 0.
+  LEFT BOUNDARY FILE                                 : no
+  LEFT BOUNDARY FILE NAME                            : BCL
+  RIGHT BOUNDARY CONDITION                           : 2
+  RIGHT DEPTH IMPOSED                                : 1.
+  RIGHT VELOCITY IMPOSED                             : -0.1
+  RIGHT FLOWRATE IMPOSED                             : 0.
+  RIGHT BOUNDARY FILE                                : no
+  RIGHT BOUNDARY FILE NAME                           : BCR
+
+
+#====================================================#
+TRACER PARAMETERS:
+#====================================================#
+  NUMBER OF TRACERS                                  : 2
+  INITIAL TRACER VALUES                              : 0., 0.
+  LEFT TRACER BOUNDARY CONDITION                     : 1, 1
+  LEFT TRACER VALUE IMPOSED                          : 0.5, 1.
+  RIGHT TRACER BOUNDARY CONDITION                    : 1, 1
+  RIGHT TRACER VALUE IMPOSED                         : 0.5, 1.
+  DIFFUSION OF TRACERS                               : no
+  TRACER DIFFUSIVITY                                 : 1.e-2, 1.e-2
+
+
+#====================================================#
+SEDIMENT PARAMETERS:
+#====================================================#
+  ACTIVATE SUSPENSION                                : no
+  ACTIVATE BEDLOAD                                   : no
+
+
+#====================================================#
+ADVANCED NUMERICAL PARAMETERS:
+#====================================================#
+  UNLOCK ADVANCED PARAMETERS                         : no

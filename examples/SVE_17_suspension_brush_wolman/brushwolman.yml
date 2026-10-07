@@ -1,0 +1,114 @@
+
+
+
+#====================================================#
+#  CASE INPUT DATA <ARRAKIS> $2.0                    #
+#====================================================#
+
+
+#====================================================#
+TIME PARAMETERS:
+#====================================================#
+  MAXIMAL NUMBER OF ITERATIONS                       : 100000000
+  DURATION                                           : 1800.
+  TIME STEP                                          : 1.
+  VARIABLE TIME STEP                                 : yes
+  CFL NUMBER                                         : 0.9
+
+
+#====================================================#
+OUTPUT PARAMETERS:
+#====================================================#
+  RESULT FILE                                        : RES
+  LISTING FREQUENCY                                  : 100
+  OUTPUT FREQUENCY                                   : 1000
+  VARIABLES                                          : ZB,H,U,ZF,QS,T1,CE,RO
+
+
+#====================================================#
+MESH PARAMETERS:
+#====================================================#
+  MESH FILE                                          : yes
+  MESH FILE NAME                                     : MESH
+  CHANNEL WIDTH                                      : 0.21336
+  VARIABLE CHANNEL WIDTH                             : no
+
+
+#====================================================#
+PHYSICAL PARAMETERS:
+#====================================================#
+  BOTTOM FRICTION LAW                                : 3
+  BOTTOM FRICTION COEFFICIENT                        : 80.
+  DIFFUSION OF VELOCITY                              : yes
+  VELOCITY DIFFUSIVITY                               : 0.0001
+
+
+#====================================================#
+NUMERICAL PARAMETERS:
+#====================================================#
+  ADVECTION SCHEME                                   : 2
+  TIME SCHEME                                        : 1
+  SPACE ORDER                                        : 1
+  SPACE ORDER FOR TRACERS                            : 1
+
+
+#====================================================#
+INITIAL CONDITION:
+#====================================================#
+  INITIAL FILE                                       : yes
+  INITIAL FILE NAME                                  : CONT
+
+
+#====================================================#
+BOUNDARY CONDITIONS:
+#====================================================#
+  ELEVATION OR WATER DEPTH FORMULATION               : 1
+  VELOCITY OR FLOWRATE FORMULATION                   : 0
+  LEFT BOUNDARY CONDITION                            : 3
+  LEFT DEPTH IMPOSED                                 : 0.02
+  LEFT VELOCITY IMPOSED                              : 0.13943569553805776
+  LEFT BOUNDARY FILE                                 : no
+  LEFT BOUNDARY FILE NAME                            : BCL
+  RIGHT BOUNDARY CONDITION                           : 2
+  RIGHT DEPTH IMPOSED                                : 0.02
+  RIGHT VELOCITY IMPOSED                             : 0.
+  RIGHT BOUNDARY FILE                                : no
+  RIGHT BOUNDARY FILE NAME                           : BCR
+  BOUNDARY CONDITION OPTION                          : 3
+
+
+#====================================================#
+TRACER PARAMETERS:
+#====================================================#
+  NUMBER OF TRACERS                                  : 1
+  INITIAL TRACER VALUES                              : 0.04
+  LEFT TRACER BOUNDARY CONDITION                     : 2
+  LEFT TRACER VALUE IMPOSED                          : 0.04
+  RIGHT TRACER BOUNDARY CONDITION                    : 2
+  RIGHT TRACER VALUE IMPOSED                         : 0.
+  DIFFUSION OF TRACERS                               : no
+  TRACER DIFFUSIVITY                                 : 0.01
+
+
+#====================================================#
+SEDIMENT PARAMETERS:
+#====================================================#
+  BED POROSITY                                       : 0.25
+  SEDIMENT DENSITY                                   : 2120.
+  SEDIMENT D50                                       : 0.45E-3
+  ACTIVATE SUSPENSION                                : yes
+  SUSPENSION FORMULA                                 : 2
+  SUSPENSION CALIBRATION COEFFICIENT                 : 1.
+  SUSPENSION SETTLING VELOCITY                       : 0.
+  SUSPENSION CRITICAL STABILIZATION                  : yes
+  SUSPENSION CRITICAL STABILIZATION COEFFICIENT      : 0.08
+  ACTIVATE BEDLOAD                                   : no
+  BEDLOAD FORMULA                                    : 3
+  NON ERODIBLE BED DAMPING REGION DEPTH              : 0.01
+  BED FRICTION SCALING COEFFICIENT                   : 1.
+
+
+#====================================================#
+ADVANCED NUMERICAL PARAMETERS:
+#====================================================#
+  UNLOCK ADVANCED PARAMETERS                         : no
